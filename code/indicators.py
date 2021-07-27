@@ -30,8 +30,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Indicators", 
                                     formatter_class=argparse.RawDescriptionHelpFormatter,
                                     epilog=textwrap.dedent("""\
-    NDX ->\tpython indicators.py data/NDX-daily.csv "%Y-%m-%d" ndx
-    XAU ->\tpython indicators.py data/XAU-1h.csv "%Y-%m-%d %H:%M" xau"""))
+    NDX ->\tpython code/indicators.py data/NDX-daily.csv "%Y-%m-%d" ndx
+    XAU ->\tpython code/indicators.py data/XAU-1h.csv "%Y-%m-%d %H:%M" xau"""))
     parser.add_argument("file")
     parser.add_argument("format")
     parser.add_argument("ticker")
@@ -47,6 +47,7 @@ if __name__ == "__main__":
     bbands(df)
     macd(df)
 
+    # See plots for various indicators
     #df[["close", "SMA_5", "SMA_10", "SMA_15", "SMA_20", "SMA_50"]].plot()
     #df[["close", "EMA_5", "EMA_10", "EMA_15", "EMA_20", "EMA_50"]].plot()
     #df[["RSI_14", "RSI70", "RSI30"]].plot()
@@ -54,4 +55,5 @@ if __name__ == "__main__":
     #df[["MACD_8_21_9", "MACDh_8_21_9", "MACDs_8_21_9"]].plot()
     #plt.show(block=True)
 
+    # Save indicator
     df.to_csv("processed/%s.csv" % args.ticker)
