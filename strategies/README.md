@@ -31,3 +31,9 @@
 * s4: open long when RSI_4 crosses above 30 after being below 30 for 5 periods, close long when RSI_4 crosses below 70 after being above 70 for 5 periods, open short when RSI_4 crosses below 30, close short when RSI_4 crosses above 70
 * s5: open long when RSI_6 crosses above 30 after being below 30 for 5 periods, close long when RSI_6 crosses below 70 after being above 70 for 5 periods, open short when RSI_6 crosses below 30, close short when RSI_6 crosses above 70
 * s6: open long when RSI_14 crosses above 30 after being below 30 for 5 periods, close long when RSI_14 crosses below 70 after being above 70 for 5 periods, open short when RSI_14 crosses below 30, close short when RSI_14 crosses above 70
+
+## BB
+* s1: open long & close short when price crosses above BBL_20_2.0 after being below for 5 periods, close long & open short when price crosses below BBL_20_2.0 after being above for 5 periods
+* s2: open long & close short when price crosses above BBL_12_2.0 after being below for 5 periods, close long & open short when price crosses below BBL_12_2.0 after being above for 5 periods
+* s3: open long & close short when price crosses above BBL_20_1.0 after being below for 5 periods, close long & open short when price crosses below BBL_20_1.0 after being above for 5 periods
+* s4: open long & close short when price crosses above BBL_12_1.0 after being below for 5 periods, close long & open short when price crosses below BBL_12_1.0 after being above for 5 periods
