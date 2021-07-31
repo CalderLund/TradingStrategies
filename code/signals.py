@@ -6,9 +6,9 @@ S = "short"
 def moving_average_signal(signal_type, column1, column2):
     def signal(df, name):
         if signal_type == L:
-            df[name] = np.where((df[column1] > df[column2]) & (df[column1].shift(-1) <= df[column2].shift(-1)), 1, 0)
+            df[name] = np.where((df[column1] > df[column2]) & (df[column1].shift(1) <= df[column2].shift(1)), 1, 0)
         elif signal_type == S:
-            df[name] = np.where((df[column1] < df[column2]) & (df[column1].shift(-1) >= df[column2].shift(-1)), 1, 0)
+            df[name] = np.where((df[column1] < df[column2]) & (df[column1].shift(1) >= df[column2].shift(1)), 1, 0)
         else:
             raise RuntimeError("unknown signal tyoe for Moving Average, must be 'long' or 'short'")
     return signal
