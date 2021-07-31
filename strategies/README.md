@@ -37,3 +37,9 @@
 * s2: open long & close short when price crosses above BBL_12_2.0 after being below for 5 periods, close long & open short when price crosses below BBL_12_2.0 after being above for 5 periods
 * s3: open long & close short when price crosses above BBL_20_1.0 after being below for 5 periods, close long & open short when price crosses below BBL_20_1.0 after being above for 5 periods
 * s4: open long & close short when price crosses above BBL_12_1.0 after being below for 5 periods, close long & open short when price crosses below BBL_12_1.0 after being above for 5 periods
+
+## MACD
+* s1: open long & close short when MACD_8_21_9 crosses above MACDs_8_21_9 after being below for 3 periods, close long & open short when MACD_8_21_9 crosses below MACDs_8_21_9 after being above for 3 periods
+* s2: open long & close short when MACD_12_26_9 crosses above MACDs_12_26_9 after being below for 3 periods, close long & open short when MACD_12_26_9 crosses below MACDs_12_26_9 after being above for 3 periods
+* s3: open long when MACD_8_21_9 crosses above MACDs_8_21_9 after being below for 3 periods, close long when MACD_8_21_9 crosses below MACDs_8_21_9, open short when MACD_8_21_9 crosses below MACDs_8_21_9 after being above for 3 periods, close short when MACD_8_21_9 crosses above MACDs_8_21_9
+* s4: open long when MACD_12_26_9 crosses above MACDs_12_26_9 after being below for 3 periods, close long when MACD_12_26_9 crosses below MACDs_12_26_9, open short when MACD_12_26_9 crosses below MACDs_12_26_9 after being above for 3 periods, close short when MACD_12_26_9 crosses above MACDs_12_26_9
