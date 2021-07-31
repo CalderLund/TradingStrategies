@@ -1,8 +1,10 @@
 import numpy as np
+from strategies import OL, CL, OS, CS
 
 L = "long"
 S = "short"
 
+### MOVING AVERAGE SIGNALS ###
 def moving_average_signal(signal_type, column1, column2):
     def signal(df, name):
         if signal_type == L:
@@ -46,3 +48,43 @@ def get_ema_signals():
             ema_ema_signals[(l1, l2, S)] = moving_average_signal(S, "EMA_%d" % l1, "EMA_%d" % l2)
 
     return close_ema_signals, ema_ema_signals
+
+### RELATIVE STRENGTH INDEX SIGNALS ###
+def rsi_signal(signal_type, column):
+    def signal(df, name):
+        if signal_type == OL:
+            df[name] = np.where((df[column] > 30) \
+                & (df[column].shift(1) <= 30) \
+                & (df[column].shift(2) <= 30) \
+                & (df[column].shift(3) <= 30) \
+                & (df[column].shift(4) <= 30) \
+                & (df[column].shift(5) <= 30),
+            1, 0)
+        elif signal_type == OS:
+            df[name] = np.where((df[column] < 70) \
+                & (df[column].shift(1) >= 70) \
+                & (df[column].shift(2) >= 70) \
+                & (df[column].shift(3) >= 70) \
+                & (df[column].shift(4) >= 70) \
+                & (df[column].shift(5) >= 70),
+            1, 0)
+        elif signal_type == CL:
+            df[name] = np.where((df[column] < 30) & (df[column].shift(1) >= 30),
+            1, 0)
+        elif signal_type == CS:
+            df[name] = np.where((df[column] > 70) & (df[column].shift(1) <= 70), 1, 0)
+        else:
+            raise RuntimeError("unknown signal tyoe for Moving Average, must be 'long' or 'short'")
+    return signal
+
+# RSI signals
+def get_rsi_signals():
+    rsi_signals = {}
+
+    for length in (4, 6, 14):
+        rsi_signals[(length, OL)] = rsi_signal(OL, "RSI_%d" % length)
+        rsi_signals[(length, OS)] = rsi_signal(OS, "RSI_%d" % length)
+        rsi_signals[(length, CL)] = rsi_signal(CL, "RSI_%d" % length)
+        rsi_signals[(length, CS)] = rsi_signal(CS, "RSI_%d" % length)
+        
+    return rsi_signals

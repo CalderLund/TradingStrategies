@@ -14,17 +14,15 @@ def ema(df, lengths=[5,10,15,20,50]):
     for length in lengths:
         df.ta.ema(length=length, append=True)
 
-def rsi(df, lengths=[14]):
+def rsi(df, lengths=[4, 6, 14]):
     for length in lengths:
         df.ta.rsi(length=length, append=True)
-    df["RSI70"] = 70
-    df["RSI30"] = 30
 
-def bbands(df, lengths=[20]):
+def bbands(df, lengths=[9, 12, 20]):
     for length in lengths:
         df.ta.bbands(length=length, append=True)
 
-def macd(df, fastslow=[(8, 21)]):
+def macd(df, fastslow=[(8, 21), (5, 14)]):
     for fast, slow in fastslow:
         df.ta.macd(fast=fast, slow=slow, append=True)
 
@@ -63,6 +61,9 @@ if __name__ == "__main__":
     df.to_csv("processed/%s.csv" % args.ticker)
     df[["close", "ROI", "SMA_5", "SMA_10", "SMA_15", "SMA_20", "SMA_50"]].to_csv("processed/%s-SMA.csv" % args.ticker)
     df[["close", "ROI", "EMA_5", "EMA_10", "EMA_15", "EMA_20", "EMA_50"]].to_csv("processed/%s-EMA.csv" % args.ticker)
-    df[["close", "ROI", "RSI_14"]].to_csv("processed/%s-RSI.csv" % args.ticker)
-    df[["close", "ROI", "BBL_20_2.0", "BBU_20_2.0", "BBM_20_2.0"]].to_csv("processed/%s-BB.csv" % args.ticker)
-    df[["close", "ROI", "MACD_8_21_9", "MACDh_8_21_9", "MACDs_8_21_9"]].to_csv("processed/%s-MACD.csv" % args.ticker)
+    df[["close", "ROI", "RSI_4", "RSI_6", "RSI_14"]].to_csv("processed/%s-RSI.csv" % args.ticker)
+    df[["close", "ROI", "BBL_9_2.0", "BBU_9_2.0", "BBM_9_2.0",
+                        "BBL_12_2.0", "BBU_12_2.0", "BBM_12_2.0",
+                        "BBL_20_2.0", "BBU_20_2.0", "BBM_20_2.0"]].to_csv("processed/%s-BB.csv" % args.ticker)
+    df[["close", "ROI", "MACD_8_21_9", "MACDh_8_21_9", "MACDs_8_21_9",
+                        "MACD_5_14_9", "MACDh_5_14_9", "MACDs_5_14_9"]].to_csv("processed/%s-MACD.csv" % args.ticker)

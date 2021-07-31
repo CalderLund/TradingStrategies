@@ -23,3 +23,11 @@
 * s8: open long when EMA_10 crosses above EMA_20, close long when EMA_5 crosses below EMA_15
 * s9: open long when EMA_15 crosses above EMA_50, close long when EMA_10 crosses below EMA_20, open short when EMA_10 crosses below EMA_20, close short when EMA_10 crosses above EMA_15
 * s10: open short when EMA_15 crosses below EMA_50, close short when EMA_15 crosses above EMA_50
+
+## RSI
+* s1: open long & close short when RSI_4 crosses above 30 after being below 30 for 5 periods, close long & open short when RSI_4 crosses below 70 after being above 70 for 5 periods
+* s2: open long & close short when RSI_6 crosses above 30 after being below 30 for 5 periods, close long & open short when RSI_6 crosses below 70 after being above 70 for 5 periods
+* s3: open long & close short when RSI_14 crosses above 30 after being below 30 for 5 periods, close long & open short when RSI_14 crosses below 70 after being above 70 for 5 periods
+* s4: open long when RSI_4 crosses above 30 after being below 30 for 5 periods, close long when RSI_4 crosses below 70 after being above 70 for 5 periods, open short when RSI_4 crosses below 30, close short when RSI_4 crosses above 70
+* s5: open long when RSI_6 crosses above 30 after being below 30 for 5 periods, close long when RSI_6 crosses below 70 after being above 70 for 5 periods, open short when RSI_6 crosses below 30, close short when RSI_6 crosses above 70
+* s6: open long when RSI_14 crosses above 30 after being below 30 for 5 periods, close long when RSI_14 crosses below 70 after being above 70 for 5 periods, open short when RSI_14 crosses below 30, close short when RSI_14 crosses above 70

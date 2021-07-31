@@ -1,5 +1,5 @@
-from signals import L, S, get_ema_signals
-from strategies import OL, CL, OS, CS, run_strategy
+from signals import L, S, OL, CL, OS, CS, get_ema_signals
+from strategies import run_strategy
 from reader import read_csv
 import argparse
 import textwrap
