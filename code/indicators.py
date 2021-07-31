@@ -3,6 +3,9 @@ import argparse
 import textwrap
 import matplotlib.pyplot as plt
 
+def roi(df):
+    df["ROI"] = df.close / df.close.shift(1) - 1
+
 def sma(df, lengths=[5,10,15,20,50]):
     for length in lengths:
         df.ta.sma(length=length, append=True)
@@ -46,6 +49,7 @@ if __name__ == "__main__":
     rsi(df)
     bbands(df)
     macd(df)
+    roi(df)
 
     # See plots for various indicators
     #df[["close", "SMA_5", "SMA_10", "SMA_15", "SMA_20", "SMA_50"]].plot()
@@ -57,3 +61,8 @@ if __name__ == "__main__":
 
     # Save indicator
     df.to_csv("processed/%s.csv" % args.ticker)
+    df[["close", "ROI", "SMA_5", "SMA_10", "SMA_15", "SMA_20", "SMA_50"]].to_csv("processed/%s-SMA.csv" % args.ticker)
+    df[["close", "ROI", "EMA_5", "EMA_10", "EMA_15", "EMA_20", "EMA_50"]].to_csv("processed/%s-EMA.csv" % args.ticker)
+    df[["close", "ROI", "RSI_14"]].to_csv("processed/%s-RSI.csv" % args.ticker)
+    df[["close", "ROI", "BBL_20_2.0", "BBU_20_2.0", "BBM_20_2.0"]].to_csv("processed/%s-BB.csv" % args.ticker)
+    df[["close", "ROI", "MACD_8_21_9", "MACDh_8_21_9", "MACDs_8_21_9"]].to_csv("processed/%s-MACD.csv" % args.ticker)
