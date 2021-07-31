@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
     # Run program
     args = parser.parse_args()
-    df = read_csv(args.file, format=args.format, ticker=args.ticker)
+    df = read_csv(args.file, ticker=args.ticker, format=args.format)
 
     # Apply indicators
     sma(df)
