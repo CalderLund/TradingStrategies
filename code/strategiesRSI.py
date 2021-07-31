@@ -6,7 +6,7 @@ import textwrap
 
 rsi_signals = get_rsi_signals()
 
-# Price vs. RSI
+# RSI
 RSI_1 = {
     OL: rsi_signals[4, OL],
     CL: rsi_signals[4, OS],

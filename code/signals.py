@@ -12,7 +12,7 @@ def moving_average_signal(signal_type, column1, column2):
         elif signal_type == S:
             df[name] = np.where((df[column1] < df[column2]) & (df[column1].shift(1) >= df[column2].shift(1)), 1, 0)
         else:
-            raise RuntimeError("unknown signal tyoe for Moving Average, must be 'long' or 'short'")
+            raise RuntimeError("unknown signal type for Moving Average, must be 'long' or 'short'")
     return signal
 
 # SMA Signals
@@ -69,12 +69,11 @@ def rsi_signal(signal_type, column):
                 & (df[column].shift(5) >= 70),
             1, 0)
         elif signal_type == CL:
-            df[name] = np.where((df[column] < 30) & (df[column].shift(1) >= 30),
-            1, 0)
+            df[name] = np.where((df[column] < 30) & (df[column].shift(1) >= 30), 1, 0)
         elif signal_type == CS:
             df[name] = np.where((df[column] > 70) & (df[column].shift(1) <= 70), 1, 0)
         else:
-            raise RuntimeError("unknown signal tyoe for Moving Average, must be 'long' or 'short'")
+            raise RuntimeError("unknown signal type for RSI, must be 'open long', 'close long', 'open short' or 'close short'")
     return signal
 
 # RSI signals
@@ -88,3 +87,40 @@ def get_rsi_signals():
         rsi_signals[(length, CS)] = rsi_signal(CS, "RSI_%d" % length)
         
     return rsi_signals
+
+### BOLLINGER BANDS SIGNALS ###
+def bb_signal(signal_type, column1, column2):
+    def signal(df, name):
+        if signal_type == L:
+            df[name] = np.where((df[column1] > df[column2]) \
+                & (df[column1].shift(1) <= df[column2].shift(1)) \
+                & (df[column1].shift(2) <= df[column2].shift(2)) \
+                & (df[column1].shift(3) <= df[column2].shift(3)) \
+                & (df[column1].shift(4) <= df[column2].shift(4)) \
+                & (df[column1].shift(5) <= df[column2]),
+            1, 0)
+        elif signal_type == S:
+            df[name] = np.where((df[column1] < df[column2]) \
+                & (df[column1].shift(1) >= df[column2].shift(1)) \
+                & (df[column1].shift(2) >= df[column2].shift(2)) \
+                & (df[column1].shift(3) >= df[column2].shift(3)) \
+                & (df[column1].shift(4) >= df[column2].shift(4)) \
+                & (df[column1].shift(5) >= df[column2].shift(5)),
+            1, 0)
+        else:
+            raise RuntimeError("unknown signal tyoe for BB, must be 'long' or 'short'")
+    return signal
+
+# BB signals
+def get_bb_signals():
+    bb_signals = {}
+
+    for length, std in ((12, 1), (20, 1), (12, 2), (20, 2)):
+        bb_signals[(length, std, L, "L")] = bb_signal(L, "close", "BBL_%d_%d.0" % (length, std))
+        bb_signals[(length, std, S, "L")] = bb_signal(S, "close", "BBL_%d_%d.0" % (length, std))
+        bb_signals[(length, std, L, "M")] = bb_signal(L, "close", "BBM_%d_%d.0" % (length, std))
+        bb_signals[(length, std, S, "M")] = bb_signal(S, "close", "BBM_%d_%d.0" % (length, std))
+        bb_signals[(length, std, L, "U")] = bb_signal(L, "close", "BBU_%d_%d.0" % (length, std))
+        bb_signals[(length, std, S, "U")] = bb_signal(S, "close", "BBU_%d_%d.0" % (length, std))
+        
+    return bb_signals
