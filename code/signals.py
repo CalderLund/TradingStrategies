@@ -97,7 +97,7 @@ def bb_signal(signal_type, column1, column2):
                 & (df[column1].shift(2) <= df[column2].shift(2)) \
                 & (df[column1].shift(3) <= df[column2].shift(3)) \
                 & (df[column1].shift(4) <= df[column2].shift(4)) \
-                & (df[column1].shift(5) <= df[column2]),
+                & (df[column1].shift(5) <= df[column2].shift(5)),
             1, 0)
         elif signal_type == S:
             df[name] = np.where((df[column1] < df[column2]) \
@@ -108,7 +108,7 @@ def bb_signal(signal_type, column1, column2):
                 & (df[column1].shift(5) >= df[column2].shift(5)),
             1, 0)
         else:
-            raise RuntimeError("unknown signal tyoe for BB, must be 'long' or 'short'")
+            raise RuntimeError("unknown signal type for BB, must be 'long' or 'short'")
     return signal
 
 # BB signals
@@ -124,3 +124,38 @@ def get_bb_signals():
         bb_signals[(length, std, S, "U")] = bb_signal(S, "close", "BBU_%d_%d.0" % (length, std))
         
     return bb_signals
+
+### MACD SIGNALS ###
+def macd_signal(signal_type, macd, macds):
+    def signal(df, name):
+        if signal_type == OL:
+            df[name] = np.where((df[macd] > df[macds]) \
+                & (df[macd].shift(1) <= df[macds].shift(1)) \
+                & (df[macd].shift(2) <= df[macds].shift(2)) \
+                & (df[macd].shift(3) <= df[macds].shift(3)),
+            1, 0)
+        elif signal_type == OS:
+            df[name] = np.where((df[macd] < df[macds]) \
+                & (df[macd].shift(1) >= df[macds].shift(1)) \
+                & (df[macd].shift(2) >= df[macds].shift(2)) \
+                & (df[macd].shift(3) >= df[macds].shift(3)),
+            1, 0)
+        elif signal_type == CL:
+            df[name] = np.where((df[macd] < df[macds]) & (df[macd].shift(1) >= df[macds].shift(1)), 1, 0)
+        elif signal_type == CS:
+            df[name] = np.where((df[macd] > df[macds]) & (df[macd].shift(1) <= df[macds].shift(1)), 1, 0)
+        else:
+            raise RuntimeError("unknown signal type for MACD, must be 'open long', 'close long', 'open short' or 'close short'")
+    return signal
+
+# MACD signals
+def get_macd_signals():
+    macd_signals = {}
+
+    for length1, length2 in ((8, 21), (12, 26)):
+        macd_signals[(length1, length2, OL)] = macd_signal(OL, "MACD_%d_%d_9" % (length1, length2), "MACDs_%d_%d_9" % (length1, length2))
+        macd_signals[(length1, length2, CL)] = macd_signal(CL, "MACD_%d_%d_9" % (length1, length2), "MACDs_%d_%d_9" % (length1, length2))
+        macd_signals[(length1, length2, OS)] = macd_signal(OS, "MACD_%d_%d_9" % (length1, length2), "MACDs_%d_%d_9" % (length1, length2))
+        macd_signals[(length1, length2, CS)] = macd_signal(CS, "MACD_%d_%d_9" % (length1, length2), "MACDs_%d_%d_9" % (length1, length2))
+        
+    return macd_signals

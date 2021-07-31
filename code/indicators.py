@@ -22,7 +22,7 @@ def bbands(df, lengths_std=[(12, 1), (20, 1), (12, 2), (20, 2)]):
     for length, std in lengths_std:
         df.ta.bbands(length=length, append=True, std=std)
 
-def macd(df, fastslow=[(8, 21), (5, 14)]):
+def macd(df, fastslow=[(8, 21), (12, 26)]):
     for fast, slow in fastslow:
         df.ta.macd(fast=fast, slow=slow, append=True)
 
@@ -67,4 +67,4 @@ if __name__ == "__main__":
                         "BBL_12_2.0", "BBU_12_2.0", "BBM_12_2.0",
                         "BBL_20_2.0", "BBU_20_2.0", "BBM_20_2.0"]].to_csv("processed/%s-BB.csv" % args.ticker)
     df[["close", "ROI", "MACD_8_21_9", "MACDh_8_21_9", "MACDs_8_21_9",
-                        "MACD_5_14_9", "MACDh_5_14_9", "MACDs_5_14_9"]].to_csv("processed/%s-MACD.csv" % args.ticker)
+                        "MACD_12_26_9", "MACDh_12_26_9", "MACDs_12_26_9"]].to_csv("processed/%s-MACD.csv" % args.ticker)
