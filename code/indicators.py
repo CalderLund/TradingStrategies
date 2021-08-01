@@ -41,6 +41,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
     df = read_csv(args.file, ticker=args.ticker, format=args.format)
 
+    df = df.iloc[::-1]
+
     # Apply indicators
     sma(df)
     ema(df)
@@ -48,8 +50,6 @@ if __name__ == "__main__":
     bbands(df)
     macd(df)
     roi(df)
-
-    df = df.iloc[::-1]
 
     # See plots for various indicators
     #df[["close", "SMA_5", "SMA_10", "SMA_15", "SMA_20", "SMA_50"]].plot()
