@@ -49,6 +49,8 @@ if __name__ == "__main__":
     macd(df)
     roi(df)
 
+    df = df.iloc[::-1]
+
     # See plots for various indicators
     #df[["close", "SMA_5", "SMA_10", "SMA_15", "SMA_20", "SMA_50"]].plot()
     #df[["close", "EMA_5", "EMA_10", "EMA_15", "EMA_20", "EMA_50"]].plot()
