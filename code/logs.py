@@ -31,7 +31,7 @@ def get_position(df, snum):
             df.loc[i:, 'SHORT'] -= 1
             df.at[i, 'cash_flow'] += 1000
             df.loc[i:, 'account_value'] += 1000
-            df.loc[i:, 'shares_short'] -= 1000 / df["close"][i]
+            df.loc[i:, 'shares_short'] += 1000 / df["close"][i]
         elif CS % snum in df.columns and df[CS % snum][i] == 1:
             df.loc[i:, 'account_value'] -= df["close"][i] * df['shares_short'][i]
             df.at[i, 'cash_flow'] -= df["close"][i] * df['shares_short'][i]
