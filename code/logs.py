@@ -38,7 +38,17 @@ def get_position(df, snum):
             df.loc[i:, 'shares_short'] = 0
             df.loc[i:, 'SHORT'] = 0
     
-    
+    i = df.index[-1]
+    if df.at[i, 'LONG'] > 0:
+        df.at[i, 'account_value'] += df["close"][i] * df['shares_long'][i]
+        df.at[i, 'cash_flow'] += df["close"][i] * df['shares_long'][i]
+        df.at[i, 'shares_long'] = 0
+        df.at[i, 'LONG'] = 0
+    if df.at[i, 'SHORT'] < 0:
+        df.at[i, 'account_value'] -= df["close"][i] * df['shares_short'][i]
+        df.at[i, 'cash_flow'] -= df["close"][i] * df['shares_short'][i]
+        df.at[i, 'shares_short'] = 0
+        df.at[i, 'SHORT'] = 0
 
 if __name__ == "__main__":
     data_dir = "data_files/"
