@@ -7,7 +7,10 @@ Application and analysis of various trading strategies on daily and hourly data.
 * from TradingStrategies repo, `pip install -r requirements.txt`
 
 ## Running
-* `indicators.py` has the code for creating the indicators. The data has already been processed and put in `processed/`. See `python indicators.py -h` for info on running this file.
+* `python code/indicators.py data/NDX-daily.csv "%Y-%m-%d" ndx` creates processed data in `processed/`
+* `python code/indicators.py data/XAU-1h.csv "%Y-%m-%d %H:%M" xau` creates processed data in `processed/`
+* `python code/strategies<indicator>.py` for each indicator in `data_files/`
+* `python code/logs.py` creates the log files for each in `log_files/`
 
 ## Useful libraries
 * https://github.com/twopirllc/pandas-ta/tree/main/pandas_ta
